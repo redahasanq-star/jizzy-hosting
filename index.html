@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JIZZY HOST - @jizzy_tv | by @Mr_forice</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;900&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--blue:#0a84ff}
+body{background:#020a14;color:#fff;font-family:'Inter',sans-serif;overflow-x:hidden}
+#canvas{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5}
+.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:95%;max-width:1280px;z-index:999;background:rgba(255,255,255,.08);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:12px 22px;display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:42px;height:42px;background:linear-gradient(135deg,#0a84ff,#00d4ff);border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(10,132,255,.6);position:relative;animation:floatIcon 3s infinite}
+.logo-icon::after{content:'✨';position:absolute;top:-8px;right:-8px;font-size:16px;animation:magic 1.5s infinite}
+@keyframes floatIcon{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes magic{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.4) rotate(20deg)}}
+.logo-text b{font-family:'Bebas Neue';font-size:24px;letter-spacing:1px} .logo-text span{font-size:11px;color:#7eb8ff;display:block}
+.made{font-size:11px;color:#5a7aa5;background:rgba(10,132,255,.12);border:1px solid rgba(10,132,255,.25);padding:6px 12px;border-radius:20px}
+.made b{color:#0a84ff}
+.hero{position:relative;z-index:1;padding:140px 5% 30px;text-align:center;background:radial-gradient(ellipse at top, rgba(10,132,255,.25) 0%, rgba(2,10,20,0) 70%)}
+.hero h1{font-family:'Space Grotesk';font-size:clamp(38px,6vw,68px);line-height:.95} .hero h1 span{background:linear-gradient(90deg,#fff,#0a84ff,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#7eb8ff;margin-top:14px;font-size:14px}
+.stats{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:8px 14px;border-radius:10px;font-size:11px;color:#aac6e8}
+.shop{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:30px 2% 50px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.12);border-radius:22px;overflow:hidden;backdrop-filter:blur(16px);transition:.45s}
+.card:hover{transform:translateY(-10px) scale(1.02);border-color:rgba(10,132,255,.6);box-shadow:0 20px 50px rgba(10,132,255,.25)}
+.img-wrap{position:relative;height:180px;overflow:hidden;background:linear-gradient(135deg,#0a1a33,#001a3a)}
+.img-wrap img{width:100%;height:100%;object-fit:cover;transition:.6s} .card:hover .img-wrap img{transform:scale(1.08)}
+.popular{position:absolute;top:12px;left:12px;background:linear-gradient(90deg,#0a84ff,#00d4ff);color:#000;font-weight:900;font-size:10px;padding:5px 10px;border-radius:20px}
+.plan-num{position:absolute;top:12px;right:12px;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);color:#fff;font-family:'Bebas Neue';font-size:13px;padding:5px 10px;border-radius:20px}
+.info{padding:18px}
+.name{font-family:'Space Grotesk';font-size:22px;font-weight:700;display:flex;align-items:center;gap:8px}
+.name span{font-size:11px;background:#fff;color:#000;padding:3px 8px;border-radius:20px;font-family:'Inter';font-weight:900}
+.specs{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.spec{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px 12px}
+.spec small{color:#6b8ab0;font-size:10px;display:block} .spec b{font-size:14px;color:#fff;margin-top:2px;display:block}
+.price-area{margin-top:16px;display:flex;justify-content:space-between;align-items:end}
+.price{font-family:'Bebas Neue';font-size:36px} .price small{font-size:16px;color:#7eb8ff} .price sub{font-size:11px;color:#5a7aa5;font-family:'Inter'}
+.buy{margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:#000;padding:13px;border-radius:14px;font-weight:900;font-size:14px;text-decoration:none;transition:.3s}
+.buy:hover{background:#0a84ff;color:#fff;box-shadow:0 0 20px #0a84ff}
+.card:nth-child(3) .buy{background:linear-gradient(90deg,#0a84ff,#00d4ff);color:#fff;box-shadow:0 0 20px rgba(10,132,255,.5);animation:pulseBlue 2s infinite}
+@keyframes pulseBlue{0%,100%{box-shadow:0 0 15px rgba(10,132,255,.4)}50%{box-shadow:0 0 30px rgba(10,132,255,.8)}}
+.contacts{position:relative;z-index:1;max-width:1280px;margin:0 auto 40px;padding:0 2%;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.contacts{grid-template-columns:1fr}}
+.contact-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:16px;display:flex;align-items:center;gap:12px;transition:.3s}
+.contact-box:hover{border-color:var(--blue);transform:translateY(-2px)}
+.contact-box .ic{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#0a84ff,#00d4ff);display:flex;align-items:center;justify-content:center;font-size:20px}
+.contact-box b{font-size:13px} .contact-box span{font-size:11px;color:#7eb8ff}
+.foot{text-align:center;padding:20px;color:#3a567d;font-size:11px;border-top:1px solid rgba(255,255,255,.06);position:relative;z-index:1}
+</style>
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+
+<div class="nav">
+<div class="logo">
+<div class="logo-icon">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M7.5 5.5L9 2l1.5 3.5L14 7l-3.5 1.5L9 12 7.5 8.5 4 7l3.5-1.5zM19 13l1 2.5L22.5 17l-2.5 1.5L19 21l-1-2.5L15.5 17l2.5-1.5L19 13zM6 14l.8 2L9 17l-2.2 1L6 20l-.8-2L3 17l2.2-1L6 14z"/></svg>
+</div>
+<div class="logo-text"><b>JIZZY HOST</b><span>🪄 @jizzy_tv • SAMP HOSTING</span></div>
+</div>
+<div class="made">Made by <b>@Mr_forice</b></div>
+</div>
+
+<div class="hero">
+<h1>HOSTING <span>8K BLUE</span><br>ULTRA PERFORMANCE</h1>
+<p>سيرفرات SAMP بأداء عالي • C-Bug 200%+ • دعم 24/7 • تفعيل فوري</p>
+<div class="stats">
+<div class="stat">⚡ 99.9% UPTIME</div>
+<div class="stat">🛡️ DDoS PROTECTION</div>
+<div class="stat">💬 @jizzy_tv SUPPORT</div>
+</div>
+</div>
+
+<div class="shop" id="shop"></div>
+
+<div class="contacts">
+<a href="https://wa.me/212620243803" target="_blank" style="text-decoration:none">
+<div class="contact-box">
+<div class="ic">👑</div>
+<div><b>@jizzy_tv - مول الستور</b><span style="display:block">+212 620-243803 • واتساب للشراء</span></div>
+</div>
+</a>
+<a href="https://wa.me/212612972555" target="_blank" style="text-decoration:none">
+<div class="contact-box">
+<div class="ic">💻</div>
+<div><b>@Mr_forice - صايب السايت</b><span style="display:block">+212 612972555 • لصياب سايتات بحال هادا</span></div>
+</div>
+</a>
+</div>
+
+<div class="foot">© 2026 <b>@jizzy_tv</b> HOST STORE • Made with 💙 by <b>@Mr_forice</b> +212 612972555 • Blue & White 8K Edition</div>
+
+<script>
+const plans = [
+{ id:1, name:"HOST PLAN 1", price:20, players:100, disk:"1GB", cbug:"200%", ram:"2GB", cpu:"1 vCore", img:"https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800", tag:"STARTER" },
+{ id:2, name:"HOST PLAN 2", price:40, players:200, disk:"2GB", cbug:"250%", ram:"4GB", cpu:"2 vCore", img:"https://images.unsplash.com/photo-1597852075234-fd721ac361d3?w=800", tag:"POPULAR" },
+{ id:3, name:"HOST PLAN 3", price:60, players:350, disk:"4GB", cbug:"300%", ram:"6GB", cpu:"2 vCore", img:"https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800", tag:"BEST SELLER" },
+{ id:4, name:"HOST PLAN 4", price:85, players:600, disk:"8GB", cbug:"350%", ram:"8GB", cpu:"4 vCore", img:"https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=800", tag:"PRO" },
+{ id:5, name:"HOST PLAN 5", price:120, players:1000, disk:"16GB", cbug:"400%", ram:"16GB", cpu:"6 vCore", img:"https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800", tag:"ULTIMATE 8K" },
+];
+
+const shop = document.getElementById('shop');
+
+plans.forEach(p=>{
+const msg = `سلام @jizzy_tv بغيت نشري ${p.name} - ${p.price}DH - ${p.players} Player - ${p.disk} Disk - CBUG ${p.cbug}`;
+const wa = `https://wa.me/212620243803?text=${encodeURIComponent(msg)}`;
+shop.innerHTML += `
+<div class="card">
+<div class="img-wrap">
+<img src="${p.img}" alt="${p.name}">
+<div class="popular">🪄 ${p.tag}</div>
+<div class="plan-num">PLAN #${p.id}</div>
+</div>
+<div class="info">
+<div class="name">🪄 ${p.name} <span>${p.players} SLOT</span></div>
+<div class="specs">
+<div class="spec"><small>👥 PLAYERS</small><b>${p.players} Player</b></div>
+<div class="spec"><small>💾 DISK</small><b>${p.disk} SSD</b></div>
+<div class="spec"><small>⚡ C-BUG</small><b>${p.cbug}</b></div>
+<div class="spec"><small>🧠 RAM / CPU</small><b>${p.ram} / ${p.cpu}</b></div>
+</div>
+<div class="price-area">
+<div class="price">${p.price}<small> DH</small><sub>/month</sub></div>
+<div style="font-size:11px;color:#5a7aa5;text-align:right">تفعيل فوري<br><b style="color:#0a84ff">SAMP 0.3.7</b></div>
+</div>
+<a href="${wa}" target="_blank" class="buy"><span>🪄 شري دابا عبر واتساب →</span></a>
+</div>
+</div>
+`;
+});
+
+// BLUE PARTICLES
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let parts=[];
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+resize();window.addEventListener('resize',resize);
+for(let i=0;i<80;i++){parts.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+0.3,dx:(Math.random()-0.5)*0.4,dy:(Math.random()-0.5)*0.4})}
+(function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+parts.forEach(p=>{
+p.x+=p.dx;p.y+=p.dy;
+if(p.x<0||p.x>canvas.width)p.dx*=-1;
+if(p.y<0||p.y>canvas.height)p.dy*=-1;
+ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fillStyle='#0a84ff';ctx.globalAlpha=0.35;ctx.fill();
+});
+requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
